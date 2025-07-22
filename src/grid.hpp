@@ -7,9 +7,9 @@ class Grid{
 public:
     
     Grid();
-    void Initialize();
-    void Print();
-    int grid[20][10];
+    void Update();
+    void RenderUI();
+    int grid[20][27];
     void Draw();
 
 private:
@@ -18,5 +18,6 @@ private:
     int NumCols;
     int cellSize;
     std::vector<Color> colors;
+    void Initialize();
 
 };

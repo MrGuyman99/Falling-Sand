@@ -8,21 +8,22 @@
 
 int main(){
 
-	InitWindow(300, 600, "Falling Sand Game");
+	InitWindow(800, 600, "Falling Sand Game");
 	SetTargetFPS(60);
 	rlImGuiSetup(true);
-	Color DarkBlue = {44, 44, 127, 255};
 
 	Grid grid = Grid();
 
 	while(WindowShouldClose() == false){
 
 		BeginDrawing();
-		ClearBackground(DarkBlue);
-		
+		ClearBackground(GetCellColors()[8]);
+	
 		grid.Draw();
+		grid.Update();
 
 		rlImGuiBegin();
+		grid.RenderUI();
 		rlImGuiEnd();
 
 		EndDrawing();
