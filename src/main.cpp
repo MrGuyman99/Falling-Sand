@@ -1,28 +1,31 @@
 #include "raylib.h"
 #include "raymath.h"
-
 #include "imgui.h"
 #include "rlImGui.h"
 
+#include "grid.hpp"
+#include "colors.hpp"
+
 int main(){
 
-	InitWindow(800, 600, "Falling Sand Game");
+	InitWindow(300, 600, "Falling Sand Game");
 	SetTargetFPS(60);
 	rlImGuiSetup(true);
+	Color DarkBlue = {44, 44, 127, 255};
+
+	Grid grid = Grid();
 
 	while(WindowShouldClose() == false){
 
 		BeginDrawing();
-		ClearBackground(WHITE);
+		ClearBackground(DarkBlue);
 		
-		DrawFPS(400, 300);
-		
+		grid.Draw();
+
 		rlImGuiBegin();
-		ImGui::ShowDemoWindow();
 		rlImGuiEnd();
 
 		EndDrawing();
-
 
 	}
 
