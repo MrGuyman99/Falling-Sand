@@ -8,20 +8,26 @@
 
 int main(){
 
+	//Obligatory Raylib Stuff (The resolution of the window is non-scalable)
 	InitWindow(800, 600, "Falling Sand Game");
-	SetTargetFPS(60);
+	SetTargetFPS(100);
 	rlImGuiSetup(true);
 
+	//Creating and instance of Grid()
 	Grid grid = Grid();
 
+	//The Game loop
 	while(WindowShouldClose() == false){
 
 		BeginDrawing();
+		//This looks so cursed lol
 		ClearBackground(GetCellColors()[8]);
-	
+		
+		//Drawing and Updating the grid
 		grid.Draw();
 		grid.Update();
 
+		//Rendering the ImGui window
 		rlImGuiBegin();
 		grid.RenderUI();
 		rlImGuiEnd();
@@ -30,6 +36,7 @@ int main(){
 
 	}
 
+	//Shutting everything down and closing the window
 	rlImGuiShutdown();
 	CloseWindow();
 
