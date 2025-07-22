@@ -1,17 +1,33 @@
-#Raylib ImGui Template with Cmake
+# A Little Falling Sand Game written with C++, Raylib, and ImGui!
 
-A simple template to help start people off
+**Build Instructions: Windows**
 
-**How to use:**
-- Download the code
-- open the folder in terminal
-- Run the following commands
+(MAKE SURE CMAKE AND VISUAL STUDIO ARE INSTALLED!!!)
+- Download or clone the repository
+- Open to the root directory
+- Open a new terminal instance and type the following commands
 
-Makes a file named build
-`mkdir build`
-Cd's into build
-`cd build`
-Configures up Cmake
-`cmake ..`
-Actually builds the project
+`md build`\
+`cd build`\
+`cmake ..`\
 `cmake --build .`
+
+That's it! The file should generate as a Visual Stuido Solution file. From here you should just be able to right-click on FallingSand, set it as the startup project\
+and press play at the top!
+
+**Build Instruction: Linux**
+
+(MAKE SURE CMAKE IS INSTALLED)
+- Download or clone the repository
+- Open to the root directory
+- Open a new terminal instance and type the following commands
+
+`mkdir build`\
+`cd build`\
+`cmake ..`\
+`cmake --build .`
+
+That's it actually! The file should be in the build directory
+
+As per usual, made with ❤️ (and the occasional compile-time error)\
+**- MrGuyMan99**
