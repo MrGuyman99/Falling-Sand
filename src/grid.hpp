@@ -19,5 +19,6 @@ private:
     int cellSize;
     std::vector<Color> colors;
     void Initialize();
+    int ColorSelected;
 
 };

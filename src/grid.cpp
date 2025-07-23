@@ -11,6 +11,7 @@ Grid::Grid(){
     NumCols = 27;
     Initialize();
     colors = GetCellColors();
+    ColorSelected = 3;
 
 }
 
@@ -44,7 +45,7 @@ void Grid::Draw(){
 
     if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false){
 
-        DrawRectangle(((GetMouseX() / cellSize) * cellSize) + 1, ((GetMouseY() / cellSize) * cellSize) + 1, cellSize - 1, cellSize - 1, colors[3]);
+        DrawRectangle(((GetMouseX() / cellSize) * cellSize) + 1, ((GetMouseY() / cellSize) * cellSize) + 1, cellSize - 1, cellSize - 1, colors[ColorSelected]);
 
     }
 
@@ -54,7 +55,7 @@ void Grid::Update(){
 
     if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false){
 
-        grid[(GetMouseY() / cellSize)][(GetMouseX() / cellSize)] = 3;
+        grid[(GetMouseY() / cellSize)][(GetMouseX() / cellSize)] = ColorSelected;
 
     }
 
@@ -73,6 +74,26 @@ void Grid::RenderUI(){
     if(ImGui::Button("Reset Grid", ImVec2(90, 24))){
 
         Initialize();
+
+    }
+
+    if(ImGui::TreeNode("Colors")){
+
+        for(size_t i = 0; i < colors.size(); i++){
+
+            ImGui::PushID(i);
+            ImGui::Text("Color %d", i);
+            if(ImGui::Button("Color", ImVec2(90, 24))){
+
+                ColorSelected = i;
+
+            }
+
+            ImGui::PopID();
+
+        }
+
+        ImGui::TreePop();
 
     }
 

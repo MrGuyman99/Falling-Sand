@@ -9,7 +9,7 @@
 int main(){
 
 	//Obligatory Raylib Stuff (The resolution of the window is non-scalable)
-	InitWindow(800, 600, "Falling Sand Game");
+	InitWindow(811, 601, "Falling Sand Game");
 	SetTargetFPS(100);
 	rlImGuiSetup(true);
 
