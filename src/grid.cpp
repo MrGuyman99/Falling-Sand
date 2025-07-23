@@ -53,13 +53,13 @@ void Grid::Draw(){
 
 void Grid::Update(){
 
-    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false){
+    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
         grid[(GetMouseY() / cellSize)][(GetMouseX() / cellSize)] = ColorSelected;
 
     }
 
-    if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false){
+    if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
         grid[(GetMouseY() / cellSize)][(GetMouseX() / cellSize)] = 0;
 
@@ -69,7 +69,7 @@ void Grid::Update(){
 
 void Grid::RenderUI(){
 
-    ImGui::Begin("Test Window");
+    ImGui::Begin("Color Selection Window");
     
     if(ImGui::Button("Reset Grid", ImVec2(90, 24))){
 
@@ -79,7 +79,7 @@ void Grid::RenderUI(){
 
     if(ImGui::TreeNode("Colors")){
 
-        for(size_t i = 0; i < colors.size(); i++){
+        for(size_t i = 0; (i + 1) < colors.size(); i++){
 
             ImGui::PushID(i);
             ImGui::Text("Color %d", i);
