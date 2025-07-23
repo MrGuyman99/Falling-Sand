@@ -10,7 +10,7 @@ public:
     void Update();
     void RenderUI();
     //Unfortunately this cannot be dynamically allocated and much be changed manually
-    int grid[20][27];
+    int grid[40][54];
     void Draw();
 
 private:
