@@ -38,7 +38,7 @@ int main(){
 		BeginDrawing();
 		//This looks so cursed lol
 		ClearBackground(GetCellColors()[8]);
-		
+	
 		//Drawing and Updating the grid
 		grid.Draw();
 		if(EventTriggered(0.03)){
@@ -48,7 +48,7 @@ int main(){
 		}
 		
 		grid.Interact();
-		
+
 		//Rendering the ImGui window
 		rlImGuiBegin();
 		grid.RenderUI();

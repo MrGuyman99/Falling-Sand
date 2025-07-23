@@ -145,7 +145,20 @@ void Grid::RenderUI(){
 
     if(ImGui::Button("Place Floor", ImVec2(90, 24))){
 
-        ColorSelected = 3;
+        //(Floor is the third index of colors)
+        //If ColorSelected doesn't equal the floor index then we set it to equal that
+        //Otherwise it equals the most recent color
+        if(ColorSelected != 3){
+
+            ColorSelected = 3;
+
+        }
+
+        else if(ColorSelected == 3){
+
+            ColorSelected = (colors.size() - 1);
+
+        }
 
     }
 
