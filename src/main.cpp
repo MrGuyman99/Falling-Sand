@@ -6,6 +6,22 @@
 #include "grid.hpp"
 #include "colors.hpp"
 
+double lastUpdateTime = 0;
+//This prevents the sand from falling too fast
+bool EventTriggered(double interval){
+
+	double currentTime = GetTime();
+	if(currentTime - lastUpdateTime >= interval){
+
+		lastUpdateTime = currentTime;
+		return true;
+
+	}
+
+	return false;
+
+}	
+
 int main(){
 
 	//Obligatory Raylib Stuff (The resolution of the window is non-scalable)
@@ -25,8 +41,14 @@ int main(){
 		
 		//Drawing and Updating the grid
 		grid.Draw();
-		grid.Update();
+		if(EventTriggered(0.05)){
 
+			grid.Update();
+
+		}
+		
+		grid.Interact();
+		
 		//Rendering the ImGui window
 		rlImGuiBegin();
 		grid.RenderUI();

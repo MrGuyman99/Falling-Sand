@@ -58,24 +58,10 @@ void Grid::Draw(){
 
 void Grid::Update(){
 
-    //This Updates the tile Color Based on the selected color at the mouse position to the grid
-    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
-
-        grid[GetMouseY() / cellSize][GetMouseX() / cellSize] = ColorSelected;
-
-    }
-
-    //This does the same but just erases (i.e sets to zero) the selected tile
-    if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
-
-        grid[GetMouseY() / cellSize][GetMouseX() / cellSize] = 0;
-
-    }
-
     //Checking if the block should fall (We use row + 1 to ignore the last row)
-    for(int row = 0; (row + 1) < numRows; ++row){
+    for(int row = 0; (row + 1) < numRows; row++){
 
-        for(int column = 0; column < NumCols; ++column){
+        for(int column = 0; column < NumCols; column++){
 
             //Not Falling (If the tile = 0 or 3)
             if(grid[row][column] == 0 || grid[row][column] == 3 || grid[row + 1][column] == 3){
@@ -89,10 +75,47 @@ void Grid::Update(){
 
                 grid[row + 1][column] = grid[row][column];
                 grid[row][column] = 0;
+                continue;
+
+            }
+
+            //If the Left Side is clear (if both are clear we just default to left)
+            else if(grid[row + 1][column - 1] == 0){
+
+                grid[row + 1][column - 1] = grid[row][column];
+                grid[row][column] = 0;
+                continue;
+
+            }
+
+            //If the right side is clear
+            else if(grid[row + 1][column + 1] == 0){
+
+                grid[row + 1][column + 1] = grid[row][column];
+                grid[row][column] = 0;
+                continue;
 
             }
 
         }
+
+    }
+
+}
+
+void Grid::Interact(){
+
+    //This Updates the tile Color Based on the selected color at the mouse position to the grid
+    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
+
+        grid[(GetMouseY() / cellSize)][(GetMouseX() / cellSize)] = ColorSelected;
+
+    }
+
+    //This does the same but just erases (i.e sets to zero) the selected tile
+    if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
+
+        grid[GetMouseY() / cellSize][GetMouseX() / cellSize] = 0;
 
     }
 
