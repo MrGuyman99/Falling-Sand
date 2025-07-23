@@ -25,7 +25,7 @@ bool EventTriggered(double interval){
 int main(){
 
 	//Obligatory Raylib Stuff (The resolution of the window is non-scalable)
-	InitWindow(601, 601, "Falling Sand Game");
+	InitWindow(810, 810, "Falling Sand Game");
 	SetTargetFPS(100);
 	rlImGuiSetup(true);
 
@@ -41,7 +41,7 @@ int main(){
 		
 		//Drawing and Updating the grid
 		grid.Draw();
-		if(EventTriggered(0.05)){
+		if(EventTriggered(0.03)){
 
 			grid.Update();
 

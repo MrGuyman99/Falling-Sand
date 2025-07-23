@@ -6,12 +6,14 @@
 
 Grid::Grid(){
 
-    cellSize = 15;
-    numRows = 40;
-    NumCols = 40;
+    cellSize = 5;
+    numRows = 162;
+    NumCols = 162; 
     Initialize();
+    //I keep the default colors in color.cpp for organizational reasons
+    //There's some spare colors in there that are/were used for testing purposes 
     colors = GetCellColors();
-    ColorSelected = 3;
+    ColorSelected = 3; 
 
 }
 
@@ -31,6 +33,7 @@ void Grid::Initialize(){
 
 }
 
+//This Draws each cell on the grid depending on the given color
 void Grid::Draw(){
 
     //We iterate through the entire grid and color in the tile depending on the value
@@ -40,7 +43,7 @@ void Grid::Draw(){
 
             //The cellValue in the index of the color vector that we draw
             int cellValue = grid[row][column];
-            DrawRectangle(column * cellSize + 1, row * cellSize + 1, cellSize - 1, cellSize - 1, colors[cellValue]);
+            DrawRectangle(column * cellSize + 1, row * cellSize + 1, cellSize, cellSize, colors[cellValue]);
         
         }
 
@@ -50,7 +53,7 @@ void Grid::Draw(){
     if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
         //((GetMouseX() / cellSize) * cellSize) is the X position we snapped/rounded in Screen Space coordinates. This aligns it to the grid
-        DrawRectangle(((GetMouseX() / cellSize) * cellSize) + 1, ((GetMouseY() / cellSize) * cellSize) + 1, cellSize - 1, cellSize - 1, colors[ColorSelected]);
+        DrawRectangle(((GetMouseX() / cellSize) * cellSize) + 1, ((GetMouseY() / cellSize) * cellSize) + 1, cellSize, cellSize, colors[ColorSelected]);
 
     }
 
@@ -72,14 +75,17 @@ void Grid::Update(){
 
             //Falling (If the tile below = 0 or != 3)
             else if(grid[row + 1][column] == 0){
-
+                
+                //We replace the given cell and reset the current one to zero
+                //Making it look like it's moving downward
+                //(This is the same for the rest of the else if's, just with different parameters)
                 grid[row + 1][column] = grid[row][column];
                 grid[row][column] = 0;
                 continue;
 
             }
 
-            //If the Left Side is clear (if both are clear we just default to left)
+            //If the Diagonal Left Side is clear (if both are clear we just default to left)
             else if(grid[row + 1][column - 1] == 0 && grid[row + 1][column] != 3){
 
                 grid[row + 1][column - 1] = grid[row][column];
@@ -88,9 +94,9 @@ void Grid::Update(){
 
             }
 
-            //If the right side is clear
+            //If the Diagonal right side is clear
             else if(grid[row + 1][column + 1] == 0 && grid[row + 1][column] != 3){
-
+ 
                 grid[row + 1][column + 1] = grid[row][column];
                 grid[row][column] = 0;
                 continue;
@@ -108,6 +114,7 @@ void Grid::Interact(){
     //This Updates the tile Color Based on the selected color at the mouse position to the grid
     if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
+        //GetMouseY() / cellSize is the position in Grid Space
         grid[(GetMouseY() / cellSize)][(GetMouseX() / cellSize)] = ColorSelected;
 
     }
@@ -129,33 +136,33 @@ void Grid::RenderUI(){
     if(ImGui::Button("Reset Grid", ImVec2(90, 24))){
 
         Initialize();
+        //We clear and reset the color vector so that the memory Usage doesn't get crazy
+        //This doesn't effect anything because the all the sand with those colors are gone
+        colors.clear();
+        colors = GetCellColors();
 
     }
 
-    //We make a tree node
-    if(ImGui::TreeNode("Colors")){
+    if(ImGui::Button("Place Floor", ImVec2(90, 24))){
 
-        //Iterates through the loop
-        //We ignore the first and last value because the first is 0, or nothing
-        //and the last is the outline color of the grid
-        for(int i = 1; (i + 1) < colors.size(); i++){
+        ColorSelected = 3;
 
-            //Pushes a custom ID for each button
-            ImGui::PushID(i);
-            //Draws text with the color index value
-            ImGui::Text("Color %d", i);
-            //We draw a button and if pressed the color selected equals the current index
-            if(ImGui::Button("Color", ImVec2(90, 24))){
+    }
 
-                ColorSelected = i;
+    //The color picker code
+    if(ImGui::ColorPicker4("Color Picker", selectedColor)){
 
-            }
-
-            ImGui::PopID();
-
-        }
-
-        ImGui::TreePop();
+        //This converts the selectedColor array into rgba values for Display Color
+        DisplayColor.r = (unsigned char)(selectedColor[0] * 255.0f);
+        DisplayColor.g = (unsigned char)(selectedColor[1] * 255.0f);
+        DisplayColor.b = (unsigned char)(selectedColor[2] * 255.0f);
+        DisplayColor.a = (unsigned char)(selectedColor[3] * 255.0f);
+        //We place the new color at the back of the vector
+        //We don't erase the color vector so that all the colors for the sand can still display
+        colors.emplace_back(DisplayColor);
+        //Then we set the current Color Selected to equal the back of the Vector 
+        //(The -1 is to account for the fact that vectors start at 0)
+        ColorSelected = (colors.size() - 1); 
 
     }
 
