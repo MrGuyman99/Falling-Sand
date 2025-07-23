@@ -140,6 +140,7 @@ void Grid::RenderUI(){
         //This doesn't effect anything because the all the sand with those colors are gone
         colors.clear();
         colors = GetCellColors();
+        ColorSelected = 3;
 
     }
 
