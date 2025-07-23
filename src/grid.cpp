@@ -8,7 +8,7 @@ Grid::Grid(){
 
     cellSize = 15;
     numRows = 40;
-    NumCols = 54;
+    NumCols = 40;
     Initialize();
     colors = GetCellColors();
     ColorSelected = 3;
@@ -34,9 +34,9 @@ void Grid::Initialize(){
 void Grid::Draw(){
 
     //We iterate through the entire grid and color in the tile depending on the value
-    for(int row = 0; row < numRows; row++){
+    for(int row = 0; row < numRows; ++row){
 
-        for(int column = 0; column < NumCols; column++){
+        for(int column = 0; column < NumCols; ++column){
 
             //The cellValue in the index of the color vector that we draw
             int cellValue = grid[row][column];
@@ -58,19 +58,19 @@ void Grid::Draw(){
 
 void Grid::Update(){
 
-    //Checking if the block should fall (We use row + 1 to ignore the last row)
-    for(int row = 0; (row + 1) < numRows; row++){
+    //Checking if the block should fall (row is different because we're iterating top to bottom)
+    for(int row = numRows - 2; row >= 0; row--){
 
         for(int column = 0; column < NumCols; column++){
 
             //Not Falling (If the tile = 0 or 3)
-            if(grid[row][column] == 0 || grid[row][column] == 3 || grid[row + 1][column] == 3){
+            if(grid[row][column] == 0 || grid[row][column] == 3 || grid[row - 1][column] == 3){
 
                 continue;
 
             }
 
-            //Falling (If the tile bellow = 0 or != 3)
+            //Falling (If the tile below = 0 or != 3)
             else if(grid[row + 1][column] == 0){
 
                 grid[row + 1][column] = grid[row][column];
@@ -80,7 +80,7 @@ void Grid::Update(){
             }
 
             //If the Left Side is clear (if both are clear we just default to left)
-            else if(grid[row + 1][column - 1] == 0){
+            else if(grid[row + 1][column - 1] == 0 && grid[row + 1][column] != 3){
 
                 grid[row + 1][column - 1] = grid[row][column];
                 grid[row][column] = 0;
@@ -89,13 +89,13 @@ void Grid::Update(){
             }
 
             //If the right side is clear
-            else if(grid[row + 1][column + 1] == 0){
+            else if(grid[row + 1][column + 1] == 0 && grid[row + 1][column] != 3){
 
                 grid[row + 1][column + 1] = grid[row][column];
                 grid[row][column] = 0;
                 continue;
 
-            }
+            } 
 
         }
 

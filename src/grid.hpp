@@ -11,7 +11,7 @@ public:
     void RenderUI();
     void Interact();
     //Unfortunately this cannot be dynamically allocated and much be changed manually
-    int grid[40][54];
+    int grid[40][40];
     void Draw();
 
 private:
