@@ -51,7 +51,7 @@ int main(){
 
 		}
 		
-		//This movement code & the scrolling code are all curtesy of
+		//This movement code & the scrolling code are all courtesy of
 		//The Raylib core examples which can be found here -> https://www.raylib.com/examples/core/loader.html?name=core_2d_camera_mouse_zoom
 		if(IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)){
 

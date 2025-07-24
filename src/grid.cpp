@@ -1,5 +1,4 @@
 #include "grid.hpp"
-#include<iostream>
 #include "colors.hpp"
 #include "raylib.h"
 #include "imgui.h"
@@ -115,6 +114,9 @@ void Grid::Update(){
 void Grid::Interact(Camera2D &camera){
 
     Vector2 ConvertedMousePos = GetScreenToWorld2D(GetMousePosition(), camera);
+    //Fixes an odd crash
+    if(ConvertedMousePos.x / cellSize > 800){return;}
+    if(ConvertedMousePos.y / cellSize > 800){return;}
 
     //This Updates the tile Color Based on the selected color at the mouse position to the grid
     if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
