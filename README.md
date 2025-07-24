@@ -1,4 +1,5 @@
 # A Little Falling Sand Game written with C++, Raylib, and ImGui!
+<img width="1920" height="1013" alt="Screenshot from 2025-07-24 08-49-41" src="https://github.com/user-attachments/assets/6065ff4f-8bba-4807-9964-998a3b31e7bd" />
 
 **Build Instructions: Windows**
 
