@@ -11,7 +11,7 @@ public:
     void RenderUI();
     void Interact(Camera2D &camera);
     //Unfortunately this cannot be dynamically allocated and much be changed manually
-    int grid[162][162];
+    int grid[216][384];
     void Draw(Camera2D &camera);
 
 private:

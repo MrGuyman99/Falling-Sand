@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "imgui.h"
 #include "rlImGui.h"
+#include<iostream>
 
 #include "grid.hpp"
 #include "colors.hpp"
@@ -41,9 +42,8 @@ int main(){
 		BeginDrawing();
 		//This looks so cursed lol
 		ClearBackground(GetCellColors()[8]);
-		
-		BeginMode2D(camera);
 
+		BeginMode2D(camera);
 		//Drawing and Updating the grid
 		if(EventTriggered(0.03)){
 
@@ -85,15 +85,26 @@ int main(){
 		}
 		
 		grid.Draw(camera);
-		
 		grid.Interact(camera);
 		EndMode2D();
 		
+   	 	if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
+
+			HideCursor();
+
+		}
+
+		else{
+
+			ShowCursor();
+
+		}
+
 		//The UI, which we render outside of Mode2D to fix issues
 		rlImGuiBegin();
 		grid.RenderUI();
 		rlImGuiEnd();
-		
+
 		EndDrawing();
 
 	}

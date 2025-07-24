@@ -6,8 +6,8 @@
 Grid::Grid(){
 
     cellSize = 5;
-    numRows = 162;
-    NumCols = 162; 
+    numRows = 216;
+    NumCols = 384; 
     Initialize();
     //I keep the default colors in color.cpp for organizational reasons
     //There's some spare colors in there that are/were used for testing purposes 
@@ -186,7 +186,7 @@ void Grid::RenderUI(){
         ColorSelected = (colors.size() - 1); 
 
     }
-
+    
     ImGui::End();
 
 }
