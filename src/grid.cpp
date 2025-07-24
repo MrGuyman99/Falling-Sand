@@ -34,7 +34,10 @@ void Grid::Initialize(){
 }
 
 //This Draws each cell on the grid depending on the given color
-void Grid::Draw(){
+void Grid::Draw(Camera2D &camera){
+
+    //This is the Screen Space mouse coordinates
+    Vector2 ConvertedMousePos = GetScreenToWorld2D(GetMousePosition(), camera);
 
     //We iterate through the entire grid and color in the tile depending on the value
     for(int row = 0; row < numRows; ++row){
@@ -53,7 +56,7 @@ void Grid::Draw(){
     if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
         //((GetMouseX() / cellSize) * cellSize) is the X position we snapped/rounded in Screen Space coordinates. This aligns it to the grid
-        DrawRectangle(((GetMouseX() / cellSize) * cellSize) + 1, ((GetMouseY() / cellSize) * cellSize) + 1, cellSize, cellSize, colors[ColorSelected]);
+        DrawRectangle(((ConvertedMousePos.x / cellSize) * cellSize) - (cellSize / 2), ((ConvertedMousePos.y / cellSize) * cellSize) - (cellSize / 2), cellSize, cellSize, colors[ColorSelected]);
 
     }
 
@@ -109,20 +112,22 @@ void Grid::Update(){
 
 }
 
-void Grid::Interact(){
+void Grid::Interact(Camera2D &camera){
+
+    Vector2 ConvertedMousePos = GetScreenToWorld2D(GetMousePosition(), camera);
 
     //This Updates the tile Color Based on the selected color at the mouse position to the grid
     if(IsMouseButtonDown(MOUSE_BUTTON_LEFT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
         //GetMouseY() / cellSize is the position in Grid Space
-        grid[(GetMouseY() / cellSize)][(GetMouseX() / cellSize)] = ColorSelected;
+        grid[((int)ConvertedMousePos.y / cellSize)][(int)ConvertedMousePos.x / cellSize] = ColorSelected;
 
     }
 
     //This does the same but just erases (i.e sets to zero) the selected tile
     if(IsMouseButtonDown(MOUSE_BUTTON_RIGHT) && ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
-        grid[GetMouseY() / cellSize][GetMouseX() / cellSize] = 0;
+        grid[((int)ConvertedMousePos.y / cellSize)][(int)ConvertedMousePos.x / cellSize] = 0;
 
     }
 

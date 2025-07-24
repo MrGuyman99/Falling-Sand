@@ -9,10 +9,10 @@ public:
     Grid();
     void Update();
     void RenderUI();
-    void Interact();
+    void Interact(Camera2D &camera);
     //Unfortunately this cannot be dynamically allocated and much be changed manually
     int grid[162][162];
-    void Draw();
+    void Draw(Camera2D &camera);
 
 private:
 
