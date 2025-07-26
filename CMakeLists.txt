@@ -1,3 +1,4 @@
+# Thank you to Kea Sigma Delta for this CMake Config!!
 cmake_minimum_required(VERSION 3.24)
 project(FallingSandGame)
 
