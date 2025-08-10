@@ -2,7 +2,6 @@
 #include "raymath.h"
 #include "imgui.h"
 #include "rlImGui.h"
-#include<iostream>
 
 #include "grid.hpp"
 #include "colors.hpp"
@@ -16,18 +15,18 @@ bool EventTriggered(double interval){
 
 		lastUpdateTime = currentTime;
 		return true;
-
+    
 	}
 
 	return false;
-
+ 
 }	
 
 int main(){
 
 	//Obligatory Raylib Stuff (The resolution of the window is non-scalable)
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-	InitWindow(810, 810, "Falling Sand Game");
+  InitWindow(810, 810, "Falling Sand Game");
 	SetTargetFPS(100);
 	rlImGuiSetup(true);
 
@@ -42,7 +41,7 @@ int main(){
 		BeginDrawing();
 		//This looks so cursed lol
 		ClearBackground(GetCellColors()[8]);
-
+    
 		BeginMode2D(camera);
 		//Drawing and Updating the grid
 		if(EventTriggered(0.03)){
@@ -87,17 +86,17 @@ int main(){
 		grid.Draw(camera);
 		grid.Interact(camera);
 		EndMode2D();
-		
-   	 	if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
+
+    if(ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) == false && ImGui::IsAnyItemHovered() == false){
 
 			HideCursor();
+      
+	  }
 
-		}
-
-		else{
+    else{
 
 			ShowCursor();
-
+      
 		}
 
 		//The UI, which we render outside of Mode2D to fix issues

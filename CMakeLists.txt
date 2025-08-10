@@ -1,10 +1,12 @@
 # Thank you to Kea Sigma Delta for this CMake Config!!
 cmake_minimum_required(VERSION 3.24)
 project(FallingSandGame)
+set(CMAKE_BUILD_TYPE Debug)
 
 # Change To CXX_STANDARD 11 if on Mac
 # See: https://github.com/raysan5/raylib/issues/1343
 set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(APPLE)
 	set(CMAKE_CXX_STANDARD 11)
