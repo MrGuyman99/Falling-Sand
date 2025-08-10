@@ -16,7 +16,7 @@
 That's it! The file should generate as a Visual Stuido Solution file. From here you should just be able to right-click on FallingSand, set it as the startup project\
 and press play at the top!
 
-**Build Instruction: Linux**
+**Build Instruction: Linux & Mac**
 
 (MAKE SURE CMAKE IS INSTALLED)
 - Download or clone the repository
@@ -32,3 +32,4 @@ That's it actually! The file should be in the build directory
 
 As per usual, made with ❤️ (and the occasional compile-time error)\
 **- MrGuyMan99**
+
